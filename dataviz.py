@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 
 # cannot pull in title
 # strip out title, set up an array, only pull in values you need
+#
 
 medal = []  # men vs women medals
 gold = 1
