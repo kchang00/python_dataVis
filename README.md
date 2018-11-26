@@ -9,3 +9,7 @@ First commit.
 2:04pm:
 
 Added values + plots, debugged!
+
+11/25 - Kayla
+
+- Fixed pie chart labels

@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 categories = []  # strip out first row of text
 installs = []  # push installs data here
-ratings = []  # push the ratings data here
+reviews = []  # push the reviews data here
 
 # open csv and parse it
 
@@ -21,11 +21,11 @@ with open('data/googleplaystore.csv') as csvfile:
             categories.append(row)  # append = add
             line_count += 1
         else:
-            # collect the ratings info, append into ratings array
-            ratingsData = row[2]
-            ratingsData = ratingsData.replace('NaN', '0')
+            # collect the reviews info, append into reviews array
+            reviewsData = row[2]
+            reviewsData = reviewsData.replace('NaN', '0')
             # float = number with a decimal, intergers = whole number
-            ratings.append(float(ratingsData))
+            reviews.append(float(reviewsData))
 
             # print('collect the rest of data')
             # count number of rows over (from 0), push data into array
@@ -38,33 +38,33 @@ with open('data/googleplaystore.csv') as csvfile:
             line_count += 1
 
 print('processed', line_count, 'rows of data')
-print('first line:', ratings[0])  # gets first row inside array
-print('last line:', ratings[-1])
+print('first line:', reviews[0])  # gets first row inside array
+print('last line:', reviews[-1])
 
-np_ratings = np.array(ratings)
+np_reviews = np.array(reviews)
 
-# how many ratings are greater than 4
-popular_apps = np_ratings > 4
-pop_pct = int(len(np_ratings[popular_apps]) / len(np_ratings) * 100)
+# how many reviews are greater than 4
+popular_apps = np_reviews > 4
+pop_pct = int(len(np_reviews[popular_apps]) / len(np_reviews) * 100)
 print(pop_pct)
 
-unpopular_apps = np_ratings < 2
-not_pop_pct = int(len(np_ratings[unpopular_apps]) / len(np_ratings) * 100)
+unpopular_apps = np_reviews < 2
+not_pop_pct = int(len(np_reviews[unpopular_apps]) / len(np_reviews) * 100)
 print(not_pop_pct)
 
 mid_apps = 100 - (pop_pct + not_pop_pct)
 
 # now we can plot stuff!
 
-labels = 'Sucks, Meh, Love it!'
+labels = 'Sucks', 'Meh', 'Love it!'
 sizes = [not_pop_pct, mid_apps, pop_pct]
 colors = ['yellowgreen', 'lightcoral', 'lightskyblue']
 explode = (0.1, 0.1, 0.15)
 
-plt.pie(sizes, explode=explode, colors=colors, autopct='%1.1f%%', shadow=True, startangle=140)
+plt.pie(sizes, explode = explode, colors = colors, autopct = '%1.1f%%', shadow = True, startangle = 140)
 plt.axis('equal')
 
-plt.legend(labels, loc=1)
+plt.legend(labels, loc = 1)
 plt.title('Do We Loves Our Apps?')
-plt.xlabel('User Ratings - Google Play Store App Installs')
+plt.xlabel('User reviews - Google Play Store App Installs')
 plt.show()
